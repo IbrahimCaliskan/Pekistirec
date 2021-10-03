@@ -1,0 +1,168 @@
+﻿@model Pekistirec.Models.DokumanModels.DokumanDuzenleViewModel
+
+@{
+    ViewBag.Title = "Döküman Düzenle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var codeBehind = new Pekistirec.Views.Dokuman.DuzenleCodebehind(Model);
+    string formSilActionName = codeBehind.FormSilActionName;
+    string formSilControllerName = codeBehind.FormSilControllerName;
+    string checkboxSilName = codeBehind.CheckboxSilName;
+    string dokumanName = codeBehind.DokumanName;
+    string absoluteUri = Request.Url.AbsoluteUri.Replace("http://","");
+    string paylasimLinki = "http://" + absoluteUri.Substring(0, absoluteUri.IndexOf("/") + 1) + codeBehind.PaylasimLinki;
+    
+
+    bool degiskenYok = false;
+    if (Model.Degiskenler == null) { degiskenYok = true; }
+    if (Model.Degiskenler.Count < 1) { degiskenYok = true; }
+}
+<div class="page-header">    
+    <h1>
+        <button class="btn btn-danger btn-xs" id="btnSil"><i class="icon-trash"></i></button>       
+        @if (Model.Dokuman.Ozel)
+        {
+            <span>Döküman Düzenle</span>
+        }
+        else
+        {
+         @dokumanName
+        }        
+    </h1>
+</div>
+
+
+    <h6>
+        Paylaş: <span class="blue">@paylasimLinki</span>
+    </h6>
+
+@if (Request.Url.AbsoluteUri.IndexOf("editkey=") > -1) 
+{ 
+    <h6>
+        Düzenle: <span class="green">@Request.Url.AbsoluteUri</span>
+    </h6>
+}
+
+
+<div class="widget-box col-lg-8 col-md-12 col-sm-12">
+    <div class="widget-header">
+        <h4>
+            <i class="icon-edit"></i>
+            DEĞİŞKENLER
+        </h4>
+    </div>
+    <div class="widget-body">
+        <div class="widget-main">
+            <div class="control-group">                
+                <div class="row">
+                    @using (Html.BeginForm(formSilActionName, formSilControllerName, new { editkey = Request.Params["editkey"] }, FormMethod.Post, new { @id = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        @Html.CheckBoxFor(m => m.Sil, new { @id = "Sil", @class = "hidden" })
+
+                        if (degiskenYok)
+                        {
+                            <div class="alert alert-danger">
+                                <p>
+                                    <strong>
+                                        <i class="icon-remove"></i>
+                                        DÖKÜMANINZDA HİÇ DEĞİŞKEN BULUNMUYOR.
+                                    </strong>
+                                    <br />
+                                    Dökümanınızda değişken olması gerekiyorsa dökümanınızı "DÖKÜMAN YÜKLEME REHBERİNE" göz atarak tekrar YÜKLEYİNİZ.
+                                </p>
+                                <p>
+                                    <a href="/Dokuman/Rehber">DÖKÜMAN YÜKLEME REHBERİ</a>
+                                </p>
+                            </div>
+                        }
+                        else
+                        {
+
+                            <table class="table col-md-12">
+                                <tr>
+                                    <th class="col-md-1 center">
+                                        @Html.DisplayName("Sil")
+                                    </th>
+                                    <th class="col-md-3 left">
+                                        @Html.DisplayName("Değişken")
+                                    </th>
+                                    <th class="col-md-8 left">
+                                        @Html.DisplayName("Açıklama")
+                                    </th>
+                                </tr>
+
+                                @for (int i = 0; i < Model.Degiskenler.Count; i++)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                    <div class="center">
+                                                        @Html.EditorFor(model => Model.Degiskenler[i].Sil)
+                                                        @Html.ValidationMessageFor(model => Model.Degiskenler[i].Sil, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                    @Html.EditorFor(model => Model.Degiskenler[i].Ad, new { htmlAttributes = new { @class = "form-control", @readonly = "true" } })
+                                                    @Html.ValidationMessageFor(model => Model.Degiskenler[i].Ad, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                    @Html.EditorFor(model => Model.Degiskenler[i].Aciklama, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => Model.Degiskenler[i].Aciklama, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                                <tr>
+                                    <td colspan="3">
+                                        <div class="form-group">
+                                            <div class="col-md-offset-1 col-md-12">
+                                                <button type="submit" class="btn btn-sm btn-success">
+                                                    <i class="icon-save icon-on-right"></i>
+                                                    KAYDET
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section page_specific_plugin_scripts{
+    <script src="/assets/js/bootbox.min.js"></script>
+}
+
+@section inline_scripts_related_to_this_page{
+    <script type="text/javascript">
+
+        jQuery(function ($) {
+
+            $("#btnSil").on(ace.click_event, function () {
+                bootbox.confirm("Dökümanı kalıcı olarak silmek istediğinizden emin misiniz?", function (result) {
+                    if (result) {
+                        $('#Sil').prop('checked', true);
+                        $('#form').submit();
+                    }
+                });
+            });
+        });
+
+    </script>
+}

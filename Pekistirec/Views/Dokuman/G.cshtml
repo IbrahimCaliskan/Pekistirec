@@ -1,0 +1,25 @@
+﻿@model Pekistirec.Models.DokumanModels.DokumanGViewModel
+@{
+    ViewBag.Title = "Pekiştireç ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<iframe src="@Model.Link" class="Iframe" width="100%">
+    Tarayıcınız desteklemiyor. Aşağıdaki linkten dökümanınıza ulaşabilirsiniz.
+    <a href="@Model.Link" target="_blank">Dökümana ulaşmak için tıklayın.</a>
+</iframe>
+
+@section inline_scripts_related_to_this_page
+{
+<script type="text/javascript">
+
+    jQuery(function ($) {
+        $('.Iframe').css('height', $(window).height() - 120 + 'px');
+
+        $(window).resize(function () {
+            $('.Iframe').css('height', $(window).height() - 120 + 'px');
+        });
+    });
+</script>
+}

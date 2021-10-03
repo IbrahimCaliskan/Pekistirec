@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var codeBehind = new Pekistirec.Views.Admin.IndexCodebehind();
+    string googleLoginURL = codeBehind.GoogleLoginURL;
+}
+
+
+<div class="row">
+    <p>
+        <a class="btn btn-app btn-primary radius-4" href="/Admin/KullaniciAra">
+            <i class="icon-group bigger-300"></i>
+            Kullanıcılar
+        </a>
+        <a class="btn btn-app btn-primary radius-4 btn-grey" href="/Admin/Ayarlar">
+            <i class="icon-cog bigger-300"></i>
+            Ayarlar
+        </a>
+    </p>
+</div>  
+
+<div class="space-2"></div>
+
+<div class="row">
+    <p>
+        <a class="btn btn-app btn-primary radius-4 btn-success" href="/Admin/DbBufferReset">
+            <i class="icon-refresh bigger-300"></i>
+            DB Buffer
+        </a>       
+    </p>
+</div>     
+
+<div class="space-2"></div>
+
+<div class="row">
+    <p>
+        <a class="btn btn-purple btn-block col-xs-12" href="@googleLoginURL">
+            <i class="icon-google-plus bigger-150"></i>
+            Google Hesap Ekle
+        </a>
+    </p>
+</div>
+
+

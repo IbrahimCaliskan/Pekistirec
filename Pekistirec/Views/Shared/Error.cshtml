@@ -1,0 +1,10 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    Layout = "~/Views/Shared/_LayoutAnonymous.cshtml";
+    ViewBag.Title = "Error";
+}
+
+<h1 class="text-danger">HATA</h1>
+<h2 class="text-danger">@((ViewBag.Message == null) ? "İsteğiniz gerçekleştirilirken hata ile karşılaşıldı." : ViewBag.Message)</h2>
+

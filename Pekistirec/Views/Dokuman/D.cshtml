@@ -1,0 +1,90 @@
+﻿@model Pekistirec.Models.DokumanModels.DokumanDViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="header smaller lighter blue">
+    @Model.Dokuman.Baslik
+</h3>
+
+<h6>
+    Bu dökümanın sizin için hazırlanması için aşağıdaki bilgilere ihtiyacımız var.
+</h6>
+
+<div class="row hidden" id="divDegiskenDuzenleSpinner">
+    <div class="alert alert-info">
+        <i class="icon-spinner icon-spin orange bigger-125"></i>
+        İşleminiz yapılırken lütfen bekleyiniz...
+    </div>
+</div>
+
+@if(User.Identity.IsAuthenticated)
+{ 
+<div class="alert alert-info">    
+    <strong>Daha Önceden Bu Dökümanın Size Özel Düzenlenmiş Olan Kopyaları...</strong>
+    <br />
+
+    @if (Model.OncedenKaydedilmisDokumanlar != null)
+    {
+        foreach (var dokumanLink in Model.OncedenKaydedilmisDokumanlar)
+        {
+            <a href="/Dokuman/g/@dokumanLink.Id">@dokumanLink.EklenmeTarihi -> @dokumanLink.Dokuman.Baslik</a>
+            <br />
+        }
+    }
+</div>
+}
+
+@if (Model.Dokuman.DokumanDegiskenleri.Count > 0)
+{
+    using (Html.BeginForm())
+    {
+    @Html.AntiForgeryToken()
+    <table class="table col-lg-12">
+        @for (int i = 0; i < Model.DegiskenDegerleri.Count; i++)
+                    {
+            <tr>
+                <td>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            @Html.Label(Model.DegiskenDegerleri[i].Aciklama, new { @class = "col-lg-12 text-right" })
+                            @Html.ValidationMessageFor(model => Model.DegiskenDegerleri[i].Aciklama, "", new { @class = "text-danger col-lg-12" })
+                        </div>
+                        <div class="col-lg-8 ">
+                            @Html.EditorFor(model => Model.DegiskenDegerleri[i].Deger, new { htmlAttributes = new { @class = "form-control col-lg-12" } })
+                            @Html.ValidationMessageFor(model => Model.DegiskenDegerleri[i].Deger, "", new { @class = "text-danger col-lg-12" })
+                        </div>
+                        <div class="hidden">
+                            @Html.EditorFor(model => Model.DegiskenDegerleri[i].Ad, new { htmlAttributes = new { @class = "form-control col-lg-12" } })
+                            @Html.ValidationMessageFor(model => Model.DegiskenDegerleri[i].Ad, "", new { @class = "text-dange col-lg-12r" })
+                        </div>
+                    </div>
+                </td>
+                
+            </tr>
+        }
+        <tr>
+            <td>                
+                <button type="submit" class="btn btn-sm btn-success">
+                    <i class="icon-save icon-on-right"></i>
+                    DÖKÜMANI BENİM İÇİN DÜZENLE
+                </button>
+            </td>
+        </tr>
+
+    </table>
+        }
+    }
+    
+@section inline_scripts_related_to_this_page{
+    <script type="text/javascript">
+        jQuery(function ($) {
+            $("form").submit(function (event) {
+                $("#divDegiskenDuzenleSpinner").removeClass("hidden");
+                $("button").attr("disabled", "disabled");
+                return true;
+            });
+        });
+    </script>
+    }

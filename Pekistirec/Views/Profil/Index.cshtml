@@ -1,0 +1,552 @@
+﻿@model DataLayer.DomainClasses.BaseDomainClasses.AspNetUser
+
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+
+	var codeBehind = new Pekistirec.Views.Profil.IndexCodeBehind(Model, this.Url);
+	string userAvatarUrl = codeBehind.userAvatarUrl;
+	string facebookLoginURL = codeBehind.FacebookLoginURL;
+	string googleLoginUrl = codeBehind.GoogleLoginURL;
+    int avatarMaxBoyut = codeBehind.AvatarMaxBoyut;
+    int dokumanSayisi = codeBehind.DokumanSayisi;
+    string yuklediklerimUrl = codeBehind.YuklediklerimURL;
+
+}
+@section meta{
+	<meta name="description" content="3 styles with inline editable feature" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+}
+
+@section page_specific_plugin_styles{
+	<link rel="stylesheet" href="/assets/css/jquery-ui-1.10.3.custom.min.css" />
+	<link rel="stylesheet" href="/assets/css/jquery.gritter.css" />
+	<link rel="stylesheet" href="/assets/css/select2.css" />
+	<link rel="stylesheet" href="/assets/css/bootstrap-editable.css" />
+	<link rel="stylesheet" href="/assets/css/prettify.css" />
+}
+
+
+@Html.AntiForgeryToken()
+<div>
+	<div id="user-profile-1" class="user-profile row">
+		<div class="col-xs-12 col-sm-3 center">
+			<div>
+				<span class="profile-picture">
+					<img id="avatar" class="editable img-responsive" alt="Alex's Avatar" src="@userAvatarUrl" />
+				</span>
+
+				<div class="space-4"></div>
+
+				<div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
+					<div class="inline position-relative">
+						<span class="white">@Model.UserName</span>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="col-xs-12 col-sm-9">
+			<div class="center">
+				<a href="@yuklediklerimUrl" class="btn btn-app btn-sm btn-light no-hover">
+					<span class="line-height-1 bigger-170 blue"> @dokumanSayisi </span>
+
+					<br />
+					<span class="line-height-1 smaller-90"> Döküman </span>
+				</a>				
+			</div>
+
+			<div class="space-12"></div>
+
+			<div class="profile-user-info profile-user-info-striped">				
+				<div class="profile-info-row">
+					<div class="profile-info-name">
+						<i class="middle icon-google-plus-sign bigger-150 blue"></i>
+					</div>
+
+					<div class="profile-info-value" id="divGoogleIdIslemleri">
+						<div id="divInnerGoogleIdIslemleri">
+							<span>@((Model.GoogleEmail != null) ? Model.GoogleEmail : "")</span>
+							@if (Model.GoogleUserId != null)
+							{
+								<a href="#" class="red" id="googleidkaldir"><i class="icon-remove"></i>&nbsp;KALDIR</a>
+							}
+							else
+							{
+								<a href="@googleLoginUrl"><i class="icon-google-plus-sign bigger-110">&nbsp;&nbsp;</i>EKLE</a>
+							}
+						</div>
+					</div>
+				</div>
+
+				<div id="googleHesapKaldirilamiyor" class="profile-info-row hide">
+					<div class="alert alert-danger">
+						<p>
+							<strong>
+								<i class="icon-remove"></i>
+								İŞLEMİNİZ GERÇEKLEŞMEDİ
+							</strong>
+							<br />
+							Pekiştireç hesabınıza ulaşmanızın tek yolu Google hesabınız olduğu için işleminizi yapamıyoruz.
+							<br />
+							Aşağıdaki linkten Pekiştireç hesabınız için şifre oluşturduktan sonra Google hesabınızı kaldırabilirsiniz.
+						</p>
+						<p>
+							<a href="/Account/Manage">ŞİFRE OLUŞTRMAK İÇİN TIKLAYIN...</a>
+						</p>
+					</div>
+				</div>
+
+				<div class="profile-info-row">
+					<div class="profile-info-name">
+						<i class="middle icon-facebook-sign bigger-150 blue"></i>
+					</div>
+
+					<div class="profile-info-value" id="divFacebookIdIslemleri">
+						<div id="divInnerFacebookIdIslemleri">
+							<span>@Html.Raw((Model.FacebookUserId != null) ? "<a target=\"blank\" href=\"https://www.facebook.com/profile.php?id=" + Model.FacebookUserId + "\">Facebook Profil</a>" : "")</span>
+							@if (Model.FacebookUserId != null)
+							{
+								<a href="#" class="red" id="facebookidkaldir"><i class="icon-remove"></i>&nbsp;KALDIR</a>
+							}
+							else
+							{
+								<a href="@facebookLoginURL"><i class="icon-facebook bigger-110">&nbsp;&nbsp;</i>EKLE</a>
+							}
+						</div>
+					</div>
+
+				</div>
+
+				<div id="facebookHesapKaldirilamiyor" class="profile-info-row hide">
+					<div class="alert alert-danger">
+						<p>
+							<strong>
+								<i class="icon-remove"></i>
+								İŞLEMİNİZ GERÇEKLEŞMEDİ
+							</strong>
+							<br />
+							Pekiştireç hesabınıza ulaşmanızın tek yolu Facebook hesabınız olduğu için işleminizi yapamıyoruz.
+							<br />
+							Aşağıdaki linkten Pekiştireç hesabınız için şifre oluşturduktan sonra Facebook hesabınızı kaldırabilirsiniz.
+						</p>
+						<p>
+							<a href="/Account/Manage">ŞİFRE OLUŞTRMAK İÇİN TIKLAYIN...</a>
+						</p>
+					</div>
+				</div>
+
+				<div class="profile-info-row">
+					<div class="profile-info-name"> Hakkımda </div>
+
+					<div class="profile-info-value">
+						<span class="editable" id="hakkimda">@Html.Raw(Model.Hakkimda)</span>
+						<span id="error-hakkimda" class="hidden">
+							<i class="icon-remove bigger-110 red"></i>
+							<span class="text-danger">Bir hata oluştu.</span>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- page specific plugin scripts -->
+<!-- ace scripts -->
+
+<script src="/assets/js/ace-elements.min.js"></script>
+<script src="/assets/js/ace.min.js"></script>
+
+<!-- inline scripts related to this page -->
+@section page_specific_plugin_scripts{
+	<!--[if lte IE 8]>
+	  <script src="/assets/js/excanvas.min.js"></script>
+	<![endif]-->
+
+	<script src="/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+	<script src="/assets/js/jquery.ui.touch-punch.min.js"></script>
+	<script src="/assets/js/jquery.gritter.min.js"></script>
+	<script src="/assets/js/bootbox.min.js"></script>
+	<script src="/assets/js/jquery.slimscroll.min.js"></script>
+	<script src="/assets/js/jquery.easy-pie-chart.min.js"></script>
+	<script src="/assets/js/jquery.hotkeys.min.js"></script>
+	<script src="/assets/js/bootstrap-wysiwyg.min.js"></script>
+	<script src="/assets/js/select2.min.js"></script>
+	<script src="/assets/js/date-time/bootstrap-datepicker.min.js"></script>
+	<script src="/assets/js/fuelux/fuelux.spinner.min.js"></script>
+	<script src="/assets/js/x-editable/bootstrap-editable.min.js"></script>
+	<script src="/assets/js/x-editable/ace-editable.min.js"></script>
+	<script src="/assets/js/jquery.maskedinput.min.js"></script>
+	<script src="/assets/js/bootstrap-tag.min.js"></script>
+
+}
+
+@section inline_scripts_related_to_this_page{
+
+	<script type="text/javascript">
+		jQuery(function ($) {
+
+			//editables on first profile page
+			$.fn.editable.defaults.mode = 'inline';
+			$.fn.editableform.loading = "<div class='editableform-loading'><i class='light-blue icon-2x icon-spinner icon-spin'></i></div>";
+			$.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit"><i class="icon-ok icon-white"></i></button>' +
+										'<button type="button" class="btn editable-cancel"><i class="icon-remove"></i></button>';
+
+
+			
+			$('#hakkimda').editable({
+				mode: 'inline',
+				type: 'wysiwyg',
+				name: 'hakkimda',
+				wysiwyg: {
+					//css : {'max-width':'300px'}
+				},
+				success: function (response, newValue) {
+					$.post("/Profil/GuncelleHakkimda", AddAntiForgeryToken({ data: newValue })).done(function (data) {
+						if (data.status == "FAIL") {
+							$('#error-hakkimda').removeClass('hidden');
+							if (data.message != '') {
+								$('#error-hakkimda .text-danger').text(data.message);
+							}
+						}
+					});
+				}
+			});
+
+			$('#googleidkaldir').click(function (response, newValue) {
+				$.post("/Profil/Guncelle", AddAntiForgeryToken({ alan: "googleid", data: null })).done(function (data) {
+					if (data.status == "OK") {
+						$('#divGoogleIdIslemleri').load("/profil/Index #divInnerGoogleIdIslemleri");
+					}
+					if (data.status == "BaskaGirisYoluYok") {
+						$('#googleHesapKaldirilamiyor').removeClass('hide');
+					}
+				})
+			});
+
+			$('#facebookidkaldir').click(function (response, newValue) {
+				$.post("/Profil/Guncelle", AddAntiForgeryToken({ alan: "facebookid", data: null })).done(function (data) {
+					if (data.status == "OK") {
+						$('#divFacebookIdIslemleri').load("/profil/Index #divInnerFacebookIdIslemleri");
+					}
+					if (data.status == "BaskaGirisYoluYok") {
+						$('#facebookHesapKaldirilamiyor').removeClass('hide');
+					}
+				})
+			});
+
+			// *** editable avatar *** //
+			try {//ie8 throws some harmless exception, so let's catch it
+
+				//it seems that editable plugin calls appendChild, and as Image doesn't have it, it causes errors on IE at unpredicted points
+				//so let's have a fake appendChild for it!
+				if (/msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())) Image.prototype.appendChild = function (el) { }
+
+				var last_gritter
+				$('#avatar').editable({
+					type: 'image',
+					name: 'avatar',
+					value: null,
+					image: {
+						//specify ace file input plugin's options here
+						btn_choose: 'Profil Resmini Değiştir',
+						droppable: false,
+						/**
+						//this will override the default before_change that only accepts image files
+						before_change: function(files, dropped) {
+							return true;
+						},
+						*/
+
+						//and a few extra ones here
+						name: 'avatar',//put the field name here as well, will be used inside the custom plugin
+						max_size: @Html.Raw(avatarMaxBoyut),//~100Kb
+						on_error: function (code) {//on_error function will be called when the selected file has a problem
+							if (last_gritter) $.gritter.remove(last_gritter);
+							if (code == 1) {//file format error
+								last_gritter = $.gritter.add({
+									title: 'Dosya bir resim dosyası değil!',
+									text: 'Lütfen jpg,gif veya png türünde dosya seçiniz.',
+									class_name: 'gritter-error gritter-center'
+								});
+							} else if (code == 2) {//file size rror
+								last_gritter = $.gritter.add({
+									title: 'Resim dosyası çok büyük!',
+									text: 'Resim boyutu en fazla 100Kb olabilir.',
+									class_name: 'gritter-error gritter-center'
+								});
+							}
+							else {//other error
+							}
+						},
+						on_success: function () {
+							$.gritter.removeAll();
+						}
+					},
+					url: function (params) {
+						// ***UPDATE AVATAR HERE*** //
+						//You can replace the contents of this function with examples/profile-avatar-update.js for actual upload
+
+						//This is similar to the file-upload.html example
+						//Replace the code inside profile page where it says ***UPDATE AVATAR HERE*** with the code below
+
+
+						//please modify submit_url accordingly
+						var submit_url = '/Profil/GuncelleAvatar';
+						var deferred;
+
+
+						//if value is empty, means no valid files were selected
+						//but it may still be submitted by the plugin, because "" (empty string) is different from previous non-empty value whatever it was
+						//so we return just here to prevent problems
+						var value = $('#avatar').next().find('input[type=hidden]:eq(0)').val();
+						if (!value || value.length == 0) {
+							deferred = new $.Deferred
+							deferred.resolve();
+							return deferred.promise();
+						}
+
+						var $form = $('#avatar').next().find('.editableform:eq(0)')
+						var file_input = $form.find('input[type=file]:eq(0)');
+
+						//user iframe for older browsers that don't support file upload via FormData & Ajax
+						if (!("FormData" in window)) {
+							deferred = new $.Deferred
+
+							var iframe_id = 'temporary-iframe-' + (new Date()).getTime() + '-' + (parseInt(Math.random() * 1000));
+							$form.after('<iframe id="' + iframe_id + '" name="' + iframe_id + '" frameborder="0" width="0" height="0" src="about:blank" style="position:absolute;z-index:-1;"></iframe>');
+							$form.append('<input type="hidden" name="temporary-iframe-id" value="' + iframe_id + '" />');
+							$form.append('<input type="hidden" name="__RequestVerificationToken" value="' + $('#__AjaxAntiForgeryForm input[name=__RequestVerificationToken]').val() + '" />');
+							$form.next().data('deferrer', deferred);//save the deferred object to the iframe
+							$form.attr({
+								'method': 'POST', 'enctype': 'multipart/form-data',
+								'target': iframe_id, 'action': submit_url
+							});
+
+							$form.get(0).submit();
+
+							//if we don't receive the response after 60 seconds, declare it as failed!
+							setTimeout(function () {
+								var iframe = document.getElementById(iframe_id);
+								if (iframe != null) {
+									iframe.src = "about:blank";
+									$(iframe).remove();
+
+									deferred.reject({ 'status': 'fail', 'message': 'Timeout!' });
+								}
+							}, 60000);
+						}
+						else {
+							var fd = null;
+							try {
+								fd = new FormData($form.get(0));
+							} catch (e) {
+								//IE10 throws "SCRIPT5: Access is denied" exception,
+								//so we need to add the key/value pairs one by one
+								fd = new FormData();
+								$.each($form.serializeArray(), function (index, item) {
+									fd.append(item.name, item.value);
+								});
+								//and then add files because files are not included in serializeArray()'s result
+								$form.find('input[type=file]').each(function () {
+									if (this.files.length > 0) fd.append(this.getAttribute('name'), this.files[0]);
+								});
+							}
+
+							//if file has been drag&dropped , append it to FormData
+							if (file_input.data('ace_input_method') == 'drop') {
+								var files = file_input.data('ace_input_files');
+								if (files && files.length > 0) {
+									fd.append(file_input.attr('name'), files[0]);
+								}
+							}
+							fd.append("__RequestVerificationToken", $('#__AjaxAntiForgeryForm input[name=__RequestVerificationToken]').val());
+
+							deferred = $.ajax({
+								url: submit_url,
+								type: 'POST',
+								processData: false,
+								contentType: false,
+								dataType: 'json',
+								data: fd,
+								xhr: function () {
+									var req = $.ajaxSettings.xhr();
+									/*if (req && req.upload) {
+										req.upload.addEventListener('progress', function(e) {
+											if(e.lengthComputable) {
+												var done = e.loaded || e.position, total = e.total || e.totalSize;
+												var percent = parseInt((done/total)*100) + '%';
+												//bar.css('width', percent).parent().attr('data-percent', percent);
+											}
+										}, false);
+									}*/
+									return req;
+								},
+								beforeSend: function () {
+									//bar.css('width', '0%').parent().attr('data-percent', '0%');
+								},
+								success: function () {
+									//bar.css('width', '100%').parent().attr('data-percent', '100%');
+								}
+							})
+						}
+
+
+
+						deferred.done(function (res) {
+							if (res.status == 'OK') {
+								$('#avatar').get(0).src = res.message;
+								$('.nav-user-photo').get(0).src = res.message;
+							}
+							else alert(res.message);
+						}).fail(function (res) {
+							alert("Failure");
+						});
+
+
+						return deferred.promise();
+
+						///////////////////
+
+						var deferred = new $.Deferred
+
+						//if value is empty, means no valid files were selected
+						//but it may still be submitted by the plugin, because "" (empty string) is different from previous non-empty value whatever it was
+						//so we return just here to prevent problems
+						var value = $('#avatar').next().find('input[type=hidden]:eq(0)').val();
+						if (!value || value.length == 0) {
+							deferred.resolve();
+							return deferred.promise();
+						}
+
+
+						//dummy upload
+						setTimeout(function () {
+							if ("FileReader" in window) {
+								//for browsers that have a thumbnail of selected image
+								var thumb = $('#avatar').next().find('img').data('thumb');
+								if (thumb) $('#avatar').get(0).src = thumb;
+							}
+
+							deferred.resolve({ 'status': 'OK' });
+
+							if (last_gritter) $.gritter.remove(last_gritter);
+							last_gritter = $.gritter.add({
+								title: 'Avatar Updated!',
+								text: 'Uploading to server can be easily implemented. A working example is included with the template.',
+								class_name: 'gritter-info gritter-center'
+							});
+
+						}, parseInt(Math.random() * 800 + 800))
+
+						return deferred.promise();
+					},
+
+					success: function (response, newValue) {
+					}
+				})
+			} catch (e) { }
+
+
+
+			//another option is using modals
+			$('#avatar2').on('click', function () {
+				var modal =
+				'<div class="modal hide fade">\
+									<div class="modal-header">\
+										<button type="button" class="close" data-dismiss="modal">&times;</button>\
+										<h4 class="blue">Change Avatar</h4>\
+									</div>\
+									\
+									<form class="no-margin">\
+									<input name="__RequestVerificationToken" type="hidden" value="' + $('#__AjaxAntiForgeryForm input[name=__RequestVerificationToken]').val() + '" />\
+									<div class="modal-body">\
+										<div class="space-4"></div>\
+										<div style="width:75%;margin-left:12%;"><input type="file" name="file-input" /></div>\
+									</div>\
+									\
+									<div class="modal-footer center">\
+										<button type="submit" class="btn btn-small btn-success"><i class="icon-ok"></i> Submit</button>\
+										<button type="button" class="btn btn-small" data-dismiss="modal"><i class="icon-remove"></i> Cancel</button>\
+									</div>\
+									</form>\
+								</div>';
+
+
+				var modal = $(modal);
+				modal.modal("show").on("hidden", function () {
+					modal.remove();
+				});
+
+				var working = false;
+
+				var form = modal.find('form:eq(0)');
+				var file = form.find('input[type=file]').eq(0);
+				file.ace_file_input({
+					style: 'well',
+					btn_choose: 'Click to choose new avatar',
+					btn_change: null,
+					no_icon: 'icon-picture',
+					thumbnail: 'small',
+					before_remove: function () {
+						//don't remove/reset files while being uploaded
+						return !working;
+					},
+					before_change: function (files, dropped) {
+						var file = files[0];
+						if (typeof file === "string") {
+							//file is just a file name here (in browsers that don't support FileReader API)
+							if (!(/\.(jpe?g|png|gif)$/i).test(file)) return false;
+						}
+						else {//file is a File object
+							var type = $.trim(file.type);
+							if ((type.length > 0 && !(/^image\/(jpe?g|png|gif)$/i).test(type))
+									|| (type.length == 0 && !(/\.(jpe?g|png|gif)$/i).test(file.name))//for android default browser!
+								) return false;
+
+							if (file.size > 110000) {//~100Kb
+								return false;
+							}
+						}
+
+						return true;
+					}
+				});
+
+				form.on('submit', function () {
+					if (!file.data('ace_input_files')) return false;
+
+					file.ace_file_input('disable');
+					form.find('button').attr('disabled', 'disabled');
+					form.find('.modal-body').append("<div class='center'><i class='icon-spinner icon-spin bigger-150 orange'></i></div>");
+
+					var deferred = new $.Deferred;
+					working = true;
+					deferred.done(function () {
+						form.find('button').removeAttr('disabled');
+						form.find('input[type=file]').ace_file_input('enable');
+						form.find('.modal-body > :last-child').remove();
+
+						modal.modal("hide");
+
+						var thumb = file.next().find('img').data('thumb');
+						if (thumb) $('#avatar2').get(0).src = thumb;
+
+						working = false;
+					});
+
+
+					setTimeout(function () {
+						deferred.resolve();
+					}, parseInt(Math.random() * 800 + 800));
+
+					return false;
+				});
+
+			});
+		});
+	</script>
+}
+

@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pekistirec", "Pekistirec\Pekistirec.csproj", "{E3EB7A34-4960-4B97-9DEF-D2028D1167C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureAPI", "AzureAPI\AzureAPI.csproj", "{1FB86FEA-1671-4B91-96D2-73CD0AD1CBB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\DataLayer.csproj", "{D510CE27-0DF8-422D-BC6C-5CACAD27A7F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleAPI", "GoogleAPI\GoogleAPI.csproj", "{E3682275-FDFA-40EE-8236-664F80ECD2E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElmahErrorLog", "ElmahErrorLog\ElmahErrorLog.csproj", "{7313434A-1E04-4AEA-BBB5-804BAA75AFB4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenXML", "OpenXML\OpenXML.csproj", "{346E112D-5205-4D99-8D86-C7C17504C856}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyInterfaces", "MyInterfaces\MyInterfaces.csproj", "{2F830E67-3923-4922-8233-7D10A9B7DACF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E3EB7A34-4960-4B97-9DEF-D2028D1167C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3EB7A34-4960-4B97-9DEF-D2028D1167C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3EB7A34-4960-4B97-9DEF-D2028D1167C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3EB7A34-4960-4B97-9DEF-D2028D1167C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FB86FEA-1671-4B91-96D2-73CD0AD1CBB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FB86FEA-1671-4B91-96D2-73CD0AD1CBB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FB86FEA-1671-4B91-96D2-73CD0AD1CBB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FB86FEA-1671-4B91-96D2-73CD0AD1CBB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D510CE27-0DF8-422D-BC6C-5CACAD27A7F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D510CE27-0DF8-422D-BC6C-5CACAD27A7F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D510CE27-0DF8-422D-BC6C-5CACAD27A7F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D510CE27-0DF8-422D-BC6C-5CACAD27A7F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3682275-FDFA-40EE-8236-664F80ECD2E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3682275-FDFA-40EE-8236-664F80ECD2E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3682275-FDFA-40EE-8236-664F80ECD2E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3682275-FDFA-40EE-8236-664F80ECD2E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7313434A-1E04-4AEA-BBB5-804BAA75AFB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7313434A-1E04-4AEA-BBB5-804BAA75AFB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7313434A-1E04-4AEA-BBB5-804BAA75AFB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7313434A-1E04-4AEA-BBB5-804BAA75AFB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{346E112D-5205-4D99-8D86-C7C17504C856}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{346E112D-5205-4D99-8D86-C7C17504C856}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{346E112D-5205-4D99-8D86-C7C17504C856}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{346E112D-5205-4D99-8D86-C7C17504C856}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F830E67-3923-4922-8233-7D10A9B7DACF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F830E67-3923-4922-8233-7D10A9B7DACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F830E67-3923-4922-8233-7D10A9B7DACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F830E67-3923-4922-8233-7D10A9B7DACF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

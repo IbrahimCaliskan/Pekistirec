@@ -1,0 +1,91 @@
+﻿@model Pekistirec.Models.AdminModels.KullaniciAyrintiViewModel
+@{
+    ViewBag.Title = "KullaniciAyrinti";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var codeBehind = new Pekistirec.Views.Admin.KullaniciAyrintiCodebehind();
+    List<string> Roller = codeBehind.Roller;
+}
+
+<div class="page-header">
+    <h1>
+        Kullanıcı Ayrıntı
+        <small>
+            <i class="icon-double-angle-right"></i>@Model.User.UserName
+        </small>
+    </h1>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-4">
+        <div class="widget-box">
+            <div class="widget-header">
+                <h4>Kullanıcı Adı</h4>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    @using (Html.BeginForm("KullaniciBilgiDuzenleUserName", "Admin", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(m => m.User.Id, new { @Name = "userid" })
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input id="form-field-1" name="userName" placeholder="UserName" class="col-sm-12" type="text" value="@Model.User.UserName">                                
+                            </div>
+                        </div>
+                        <div class="space-4"></div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <button type="submit" class="btn btn-sm btn-success">
+                                    <i class="icon-save icon-on-right"></i>
+                                    KAYDET
+                                </button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-xs-12 col-sm-4">
+        <div class="widget-box">
+            <div class="widget-header">
+                <h4>Roller</h4>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    @using (Html.BeginForm("KullaniciBilgiDuzenleRol", "Admin", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(m => m.User.Id, new { @Name = "userid" })
+                        <div class="row">
+                            @foreach (var rol in Roller)
+                            {
+                                <div class="control-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input name="rol" class="ace" type="checkbox" value="@rol" @((Model.Roller.Where(r => r == rol).Count() > 0) ? "checked=\"checkhed\"" : "")>
+                                            <span class="lbl"> @rol</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-sm btn-success">
+                                    <i class="icon-save icon-on-right"></i>
+                                    KAYDET
+                                </button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

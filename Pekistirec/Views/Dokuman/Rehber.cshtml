@@ -1,0 +1,156 @@
+﻿
+@{
+    ViewBag.Title = "Rehber";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section AddToHead{
+    <style>
+        img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        #divOuter{
+            width:600px;
+        }
+    </style>
+    }
+
+<div id="divOuter">
+    <div class="page-header">
+        <h1>
+            Döküman Modülü Nedir?
+        </h1>
+    </div>
+    <p>
+        "Pekiştireç.net" üzerindeki döküman modülü öğretmenlerin gerek duydukları dökümanlara daha hızlı bir şekilde ulaşıp, bulut bilişim sayesinde daha kolay düzenlemesini sağlayan bir web uygulamasıdır.
+    </p>
+
+    <p>
+        <img src="~/Content/images/Rehber/Dokuman/RehberGenel.jpg" />
+    </p>
+
+    <h3><u>Döküman Yükleme İşlemleri</u></h3>
+
+    <div role="tablist" id="accordion2" class="accordion-style2 ui-accordion ui-widget ui-helper-reset ui-sortable">
+        <div class="group">
+            <h3 tabindex="0" aria-selected="true" aria-controls="ui-accordion-accordion-panel-0" id="ui-accordion-accordion-header-0" role="tab" class="accordion-header ui-accordion-header ui-helper-reset ui-state-default ui-accordion-header-active ui-state-active ui-corner-top ui-accordion-icons"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-s"></span>Dökümanı yükleme işlemine hazılama.</h3>
+            <div aria-hidden="false" aria-expanded="true" role="tabpanel" aria-labelledby="ui-accordion-accordion-header-0" id="ui-accordion-accordion-panel-0" style="display: block;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active">
+                <p>
+                    Diğer öğretmenler ile paylaşmak istediğimiz dökümanı sisteme yüklemeden önce diğer öğretmenler tarafından değiştirilmesi gereken bilgileri, # işaretleri arasına almalıyız.
+                    Örneğin; dökümandaki okul adının bulunduğu kısmı #OKUL#, yada müdür adının bulunması gereken kısmı #MÜDÜR_ADI# olarak belirtmek gibi.                    
+                </p>
+                <img src="~/Content/images/Rehber/Dokuman/Rehber1.png" />
+            </div>
+        </div>
+        <div class="group">
+            <h3 tabindex="-1" aria-selected="false" aria-controls="ui-accordion-accordion-panel-1" id="ui-accordion-accordion-header-1" role="tab" class="accordion-header ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>Dökümanı sisteme yükleme.</h3>
+            <div aria-hidden="true" aria-expanded="false" role="tabpanel" aria-labelledby="ui-accordion-accordion-header-1" id="ui-accordion-accordion-panel-1" style="display: none;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
+                <p>
+                    Daha sonra dökümanı soldaki menüdeki, "Döküman" başlığının altında bulunan "Ekle" linkine tıklayarak yükleyebiliriz.                                        
+                </p>
+                <img src="~/Content/images/Rehber/Dokuman/Rehber2.png" />
+                <p>
+                    *** Eğer dökümanın "Pekiştireç.net" üzerinde listelenmesini istemiyorsak "Özel" kısmını "Sadece Linke Sahip Olanlar" olarak belirmeliyiz. Bu şekilde yapılan yüklemelerde dökümana ulaşmasını istediğimiz kişilere sistemin bize verdiği linki vermeliyiz.
+                </p>
+            </div>
+        </div>
+        <div class="group">
+            <h3 tabindex="-1" aria-selected="false" aria-controls="ui-accordion-accordion-panel-2" id="ui-accordion-accordion-header-2" role="tab" class="accordion-header ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>Dökümanı düzenleme.</h3>
+            <div aria-hidden="true" aria-expanded="false" role="tabpanel" aria-labelledby="ui-accordion-accordion-header-2" id="ui-accordion-accordion-panel-2" style="display: none;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
+                <p>
+                   Dökümanı yükledikten sonra düzenleme ekranınıa yönlendirilirsiniz. Burada sistemin dökümanınızda tespit ettiği değişkenleri görebilirsiniz. Değişkenleri veya dökümanı silebilirsiniz.
+                </p>
+                <img src="~/Content/images/Rehber/Dokuman/Rehber3.png" />
+                <p>
+                    *** Eğer sistem eksik değişken bulmuşsa, dökümanınızdaki değişken kısımları silip "Kopyala Yapıştır Yapmadan" elinizle tekrar düzenleyerek dökümanınızı sisteme tekrar yükleyiniz.
+                </p>
+                <p>
+                    *** Sisteme yükleme yapmak için kayıt olmanıza gerek yoktur. Size verilen düzenleme linki ile dökümanınızı istediğiniz zaman düzenleyebilirsiniz.
+                </p>
+            </div>
+        </div>                
+    </div>
+
+    <hr />
+
+    <h3><u>Döküman Arama ve Kullanma</u></h3>
+
+    <div role="tablist" id="accordion" class="accordion-style2 ui-accordion ui-widget ui-helper-reset ui-sortable">
+        <div class="group">
+            <h3 tabindex="-1" aria-selected="false" aria-controls="ui-accordion-accordion-panel-2" id="ui-accordion-accordion-header-2" role="tab" class="accordion-header ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>Döküman arama.</h3>
+            <div aria-hidden="true" aria-expanded="false" role="tabpanel" aria-labelledby="ui-accordion-accordion-header-2" id="ui-accordion-accordion-panel-2" style="display: none;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
+                <p>
+                    Dökümanları etikletlere göre listeleyebilir, Başlıklarda veya <b>"Döküman İçeriklerinde"</b> arama yapabilirsiniz.
+                </p>
+                <img src="~/Content/images/Rehber/Dokuman/Rehber4.png" />
+            </div>
+        </div>
+        <div class="group">
+            <h3 tabindex="-1" aria-selected="false" aria-controls="ui-accordion-accordion-panel-2" id="ui-accordion-accordion-header-2" role="tab" class="accordion-header ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>Değişken bilgilerinizi belirtmek.</h3>
+            <div aria-hidden="true" aria-expanded="false" role="tabpanel" aria-labelledby="ui-accordion-accordion-header-2" id="ui-accordion-accordion-panel-2" style="display: none;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
+                <p>
+                    Seçtiğimiz dökümanına tıkladığımızda dökümanın sizin için düzenlenmesi için gereken bilgileri girebileceğiniz kısma yönlendirilirsiniz.
+                </p>
+                <img src="~/Content/images/Rehber/Dokuman/Rehber5.png" />
+            </div>
+        </div>
+        <div class="group">
+            <h3 tabindex="-1" aria-selected="false" aria-controls="ui-accordion-accordion-panel-2" id="ui-accordion-accordion-header-2" role="tab" class="accordion-header ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>Hazırlanan dökümanın bulut sistemine yüklenmesi.</h3>
+            <div aria-hidden="true" aria-expanded="false" role="tabpanel" aria-labelledby="ui-accordion-accordion-header-2" id="ui-accordion-accordion-panel-2" style="display: none;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
+                <p>
+                    Berlittiğimiz bilgilere göre döküman düzenlenir, Google Drive sistemine yüklenir ve karşınıza gelir.
+                </p>
+                <img src="~/Content/images/Rehber/Dokuman/Rehber5.png" />
+                <p>
+                    *** Adres çubuğundaki link ile istediğimiz zaman dökümana ulaşabiliriz.
+                </p>
+                <p>
+                    *** Eğer sisteme üye olup Google hesabınızı Pekiştireç.net hesabınıza tanıtırsanız, dökümanlar kendi hesabınıza yüklenir.
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+
+    
+</div>
+
+@section inline_scripts_related_to_this_page{
+
+    <script type="text/javascript">
+        jQuery(function ($) {
+            //jquery accordion
+            $("#accordion").accordion({
+                collapsible: true,
+                heightStyle: "content",
+                animate: 250,
+                header: ".accordion-header"
+            }).sortable({
+                axis: "y",
+                handle: ".accordion-header",
+                stop: function (event, ui) {
+                    // IE doesn't register the blur when sorting
+                    // so trigger focusout handlers to remove .ui-state-focus
+                    ui.item.children(".accordion-header").triggerHandler("focusout");
+                }
+            });
+            $("#accordion2").accordion({
+                collapsible: true,
+                heightStyle: "content",
+                animate: 250,
+                header: ".accordion-header"
+            }).sortable({
+                axis: "y",
+                handle: ".accordion-header",
+                stop: function (event, ui) {
+                    // IE doesn't register the blur when sorting
+                    // so trigger focusout handlers to remove .ui-state-focus
+                    ui.item.children(".accordion-header").triggerHandler("focusout");
+                }
+            });
+        });
+    </script>
+
+}

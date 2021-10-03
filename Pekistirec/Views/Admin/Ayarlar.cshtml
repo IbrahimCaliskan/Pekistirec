@@ -1,0 +1,206 @@
+﻿@model Pekistirec.Models.AdminModels.AyarlarViewModel
+
+@{
+	ViewBag.Title = "Ayarlar";
+	Layout = "~/Views/Shared/_Layout.cshtml";		
+}
+
+@section page_specific_plugin_styles{
+	<link rel="stylesheet" href="/assets/css/jquery-ui-1.10.3.custom.min.css" />
+	<link rel="stylesheet" href="/assets/css/jquery.gritter.css" />
+	<link rel="stylesheet" href="/assets/css/select2.css" />
+	<link rel="stylesheet" href="/assets/css/bootstrap-editable.css" />
+	<link rel="stylesheet" href="/assets/css/prettify.css" />
+}
+
+<div class="page-header">
+	<h1>
+		Genel Ayarlar
+		<small>
+			<i class="icon-double-angle-right"></i>
+		</small>
+	</h1>
+</div>
+
+<div class="form-horizontal" role="form">
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> EVENT LOG</label>
+		<div class="col-sm-9">
+			<label id="lblEventLogEnabled" class="col-sm-9">
+				<input id="EventLogEnabled" class="ace ace-switch ace-switch-7" type="checkbox" checked="@Model.EVENTLOG_ENABLED">
+				<span class="lbl"></span>
+			</label>
+		</div>
+	</div>
+	<div class="space-4"></div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> EVENT LOG BUFFER SIZE</label>
+		<div class="col-sm-9">
+			<span class="editable bigger-120" id="EventLogBufferSize">@Model.EVENTLOG_BUFFER_SIZE</span>
+		</div>
+	</div>
+	<div class="space-4"></div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> RECAPTCHA</label>
+		<div class="col-sm-9">
+			<label id="lblRecaptchaEnabled" class="col-sm-9">
+				<input id="RecaptchaEnabled" class="ace ace-switch ace-switch-7" type="checkbox" checked="@Model.RECAPTCHA_ENABLED">
+				<span class="lbl"></span>
+			</label>
+		</div>
+	</div>
+	<div class="space-4"></div>
+
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> RECAPTCHA İÇİN HATALI GİRİŞ SAYISI</label>
+		<div class="col-sm-9">
+			<span class="editable bigger-120" id="RecaptchaIcinHataliGirisSayisi">@Model.RECAPTCHA_KULLANICI_GIRIS_ESNASINDA_GORUNMESI_ICIN_MAX_HATALI_GIRIS_DENEMESI</span>
+		</div>
+	</div>
+	<div class="space-4"></div>
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> RECAPTCHA İÇİN YENİ KAYIT SAYISI</label>
+		<div class="col-sm-9">
+			<span class="editable bigger-120" id="RecaptchaIcinKullaniciKayitSayisi">@Model.RECAPTCHA_KULLANICI_KAYIT_ESNASINDA_GORUNMESI_ICIN_MAX_KULLANICI_KAYIT_SAYISI</span>
+		</div>
+	</div> 
+
+    <div class="space-4"></div>
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> RECAPTCHA İÇİN DOKUMAN YUKLEME SAYISI</label>
+        <div class="col-sm-9">
+            <span class="editable bigger-120" id="RecaptchaIcinDokumanYuklemeSayisi">@Model.RECAPTCHA_DOKUMAN_YUKLE_GORUNMESI_ICIN_MAX_YUKLEME_SAYISI</span>
+        </div>
+    </div> 
+
+    <div class="space-4"></div>
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> RECAPTCHA İÇİN DOKUMAN GOSTERME SAYISI</label>
+        <div class="col-sm-9">
+            <span class="editable bigger-120" id="RecaptchaIcinDokumanGostermeSayisi">@Model.RECAPTCHA_DOKUMAN_GOSTER_GORUNMESI_ICIN_MAX_GOSTERME_SAYISI</span>
+        </div>
+    </div> 
+</div>
+
+
+<!-- page specific plugin scripts -->
+<!-- ace scripts -->
+
+<script src="/assets/js/ace-elements.min.js"></script>
+<script src="/assets/js/ace.min.js"></script>
+
+<!-- inline scripts related to this page -->
+@section page_specific_plugin_scripts{
+	<!--[if lte IE 8]>
+	  <script src="/assets/js/excanvas.min.js"></script>
+	<![endif]-->
+
+	<script src="/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+	<script src="/assets/js/jquery.ui.touch-punch.min.js"></script>
+	<script src="/assets/js/jquery.gritter.min.js"></script>
+	<script src="/assets/js/bootbox.min.js"></script>
+	<script src="/assets/js/jquery.slimscroll.min.js"></script>
+	<script src="/assets/js/jquery.easy-pie-chart.min.js"></script>
+	<script src="/assets/js/jquery.hotkeys.min.js"></script>
+	<script src="/assets/js/bootstrap-wysiwyg.min.js"></script>
+	<script src="/assets/js/select2.min.js"></script>
+	<script src="/assets/js/date-time/bootstrap-datepicker.min.js"></script>
+	<script src="/assets/js/fuelux/fuelux.spinner.min.js"></script>
+	<script src="/assets/js/x-editable/bootstrap-editable.min.js"></script>
+	<script src="/assets/js/x-editable/ace-editable.min.js"></script>
+	<script src="/assets/js/jquery.maskedinput.min.js"></script>
+
+}
+
+@section inline_scripts_related_to_this_page{
+
+	<script type="text/javascript">
+		jQuery(function ($) {
+			//editables on first profile page
+			$.fn.editable.defaults.mode = 'inline';
+			$.fn.editableform.loading = "<div class='editableform-loading'><i class='light-blue icon-2x icon-spinner icon-spin'></i></div>";
+			$.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit"><i class="icon-ok icon-white"></i></button>' +
+										'<button type="button" class="btn editable-cancel"><i class="icon-remove"></i></button>';
+
+
+			$('#EventLogEnabled').change(function () {
+				$.post("/Admin/AyarDegistir", AddAntiForgeryToken({ ayar: "EVENTLOG_ENABLED", deger: $(this).is(':checked') })).done(function (data) { });
+			});
+
+			$('#EventLogBufferSize').editable({
+				type: 'slider',//$range.type == 'range' ? 'range' : 'slider',
+				name: 'EventLogBufferSize',
+				value: '@Model.EVENTLOG_BUFFER_SIZE',
+				slider: {
+					min: 1, max: 99, width: 100
+				},
+				success: function (response, newValue) {
+					$.post("/Admin/AyarDegistir", AddAntiForgeryToken({ ayar: "EVENTLOG_BUFFER_SIZE", deger: newValue })).done(function (data) { });
+					$(this).html(newValue);
+				}
+			});
+
+			$('#RecaptchaEnabled').change(function () {
+				$.post("/Admin/AyarDegistir", AddAntiForgeryToken({ ayar: "RECAPTCHA_ENABLED", deger: $(this).is(':checked') })).done(function (data) { });
+			});
+
+			$('#RecaptchaIcinHataliGirisSayisi').editable({
+				type: 'slider',//$range.type == 'range' ? 'range' : 'slider',
+				name: 'RecaptchaIcinHataliGirisSayisi',
+				value: '@Model.RECAPTCHA_KULLANICI_GIRIS_ESNASINDA_GORUNMESI_ICIN_MAX_HATALI_GIRIS_DENEMESI',
+				slider: {
+					min: 1, max: 99, width: 100
+				},
+				success: function (response, newValue) {
+					$.post("/Admin/AyarDegistir", AddAntiForgeryToken({ ayar: "RECAPTCHA_KULLANICI_GIRIS_ESNASINDA_GORUNMESI_ICIN_MAX_HATALI_GIRIS_DENEMESI", deger: newValue })).done(function (data) { });
+					$(this).html(newValue);
+				}
+			});
+
+			$('#RecaptchaIcinKullaniciKayitSayisi').editable({
+				type: 'slider',//$range.type == 'range' ? 'range' : 'slider',
+				name: 'RecaptchaIcinKullaniciKayitSayisi',
+				value: '@Model.RECAPTCHA_KULLANICI_KAYIT_ESNASINDA_GORUNMESI_ICIN_MAX_KULLANICI_KAYIT_SAYISI',
+				slider: {
+					min: 1, max: 99, width: 100
+				},
+				success: function (response, newValue) {
+					$.post("/Admin/AyarDegistir", AddAntiForgeryToken({ ayar: "RECAPTCHA_KULLANICI_KAYIT_ESNASINDA_GORUNMESI_ICIN_MAX_KULLANICI_KAYIT_SAYISI", deger: newValue })).done(function (data) { });
+					$(this).html(newValue);
+				}
+			});
+
+		    $('#RecaptchaIcinDokumanYuklemeSayisi').editable({
+		        type: 'slider',//$range.type == 'range' ? 'range' : 'slider',
+		        name: 'RecaptchaIcinDokumanYuklemeSayisi',
+		        value: '@Model.RECAPTCHA_DOKUMAN_YUKLE_GORUNMESI_ICIN_MAX_YUKLEME_SAYISI',
+		        slider: {
+		            min: 1, max: 99, width: 100
+		        },
+		        success: function (response, newValue) {
+		            $.post("/Admin/AyarDegistir", AddAntiForgeryToken({ ayar: "RECAPTCHA_DOKUMAN_YUKLE_GORUNMESI_ICIN_MAX_YUKLEME_SAYISI", deger: newValue })).done(function (data) { });
+		            $(this).html(newValue);
+		        }
+		    });
+
+
+		    $('#RecaptchaIcinDokumanGostermeSayisi').editable({
+		        type: 'slider',//$range.type == 'range' ? 'range' : 'slider',
+		        name: 'RecaptchaIcinDokumanGostermeSayisi',
+		        value: '@Model.RECAPTCHA_DOKUMAN_GOSTER_GORUNMESI_ICIN_MAX_GOSTERME_SAYISI',
+		        slider: {
+		            min: 1, max: 99, width: 100
+		        },
+		        success: function (response, newValue) {
+		            $.post("/Admin/AyarDegistir", AddAntiForgeryToken({ ayar: "RECAPTCHA_DOKUMAN_GOSTER_GORUNMESI_ICIN_MAX_GOSTERME_SAYISI", deger: newValue })).done(function (data) { });
+		            $(this).html(newValue);
+		        }
+		    });
+		});
+	</script>
+}
+

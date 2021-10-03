@@ -1,0 +1,162 @@
+﻿@model Pekistirec.Models.DokumanModels.DokumanIndexViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var codebehind = new Pekistirec.Views.Dokuman.IndexCodebehind();
+    string jsOzelliklerArrayBuffer = codebehind.jsOzelliklerArrayBuffer;
+}
+
+<h3 class="header smaller lighter blue">
+    Döküman Listele
+</h3>
+
+<div class="tabbable tabs-left">
+    <ul class="nav nav-tabs" id="myTab3">
+        <li id ="liFiltrele" class="active">
+            <a data-toggle="tab" href="#divFiltrele">
+                <i class="pink icon-filter bigger-110"></i>
+                Filtrele
+            </a>
+        </li>
+        <li id="liAra" class="">
+            <a data-toggle="tab" href="#divAra">
+                <i class="blue icon-search bigger-110"></i>
+                Ara
+            </a>
+        </li>        
+    </ul>
+    <div class="tab-content">
+        <div id="divFiltrele" class="tab-pane active">
+            <form>
+                <input type="text" name="Etiket" class="col-md-12" id="txtEtiketler" value="" placeholder="Etiket Ekle" />
+                <br />
+                <button class="btn btn-xs" type="submit">
+                    <i class="icon-filter bigger-110"></i>
+                    Filtrele
+                </button>
+            </form>
+        </div>
+        <div id="divAra" class="tab-pane">
+            <form class="form-search">
+                <span class="input-icon">
+                    <input type="text" placeholder="Ara..."  name="Ara" id="txtAra" autocomplete="off" />
+                    <i class="icon-search nav-search-icon"></i>
+                </span>
+                <label>
+                    <select id="AramaTipi" name="AramaTipi">
+                        <option selected="selected" value="false">Başlıklarda</option>
+                        <option value="true">İçeriklerde</option>
+                    </select>
+                </label>
+                <br />
+                <button class="btn btn-xs" type="submit">
+                    <i class="icon-search bigger-110"></i>
+                    Ara
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="widget-box">
+    <div class="widget-header">
+        <h4 class="smaller">Dökümanlar</h4>
+    </div>
+    <div class="widget-body">
+        <div class="widget-main">
+           @if (Model.dokumanlar != null)
+           {
+               foreach (var dokuman in Model.dokumanlar)
+               {
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <a href="/Dokuman/d/@dokuman.Id" class="btn btn-white btn-large col-xs-12 col-sm-12 col-md-12 col-lg-12 align-left">
+                            <img width="27px" src="~/Content/images/app_icons/@(dokuman.Uzanti).gif" />
+                            <span class="text-autosize"> @dokuman.Baslik</span>
+                        </a>
+                    </div>
+                </div>
+               }
+           }
+        </div>
+    </div>
+</div>
+
+@section page_specific_plugin_scripts{
+
+    <script src="/assets/js/bootstrap-tag.min.js"></script>
+}
+
+@section inline_scripts_related_to_this_page
+{
+<script type="text/javascript">
+
+    function getParameterByName(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+            results = regex.exec(location.search);
+        return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+
+    jQuery(function ($) {
+        
+        var etiketler = getParameterByName('Etiket');
+        var arama = getParameterByName('Ara');
+
+        $('#txtEtiketler').val(etiketler);
+        $('#txtAra').val(arama);
+
+        if (etiketler != '')
+        {
+            $('#divFiltrele').addClass('active');
+            $('#divAra').removeClass('active');
+            $('#liFiltrele').addClass('active');
+            $('#liAra').removeClass('active');
+        }
+
+        if (arama != '')
+        {
+            $('#divAra').addClass('active');
+            $('#divFiltrele').removeClass('active');
+            $('#liAra').addClass('active');
+            $('#liFiltrele').removeClass('active');
+        }
+
+        $(window).resize(function () {
+            
+
+            var fontSize = 13;            
+            var windowsWidth = $(window).width();
+            if (windowsWidth < 600)
+            {
+                fontSize = windowsWidth / 50;
+                if (fontSize < 9)
+                {
+                    fontSize = 9;
+                }
+            }
+            $(".text-autosize").css("font-size",  fontSize + "px");
+           
+        });
+        $(window).resize();
+
+
+        //we could just set the data-provide="tag" of the element inside HTML, but IE8 fails!
+        var tag_input = $('#txtEtiketler');
+        if (!(/msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase()))) {
+            tag_input.tag({
+                placeholder: tag_input.attr('placeholder'),
+                //enable typeahead by specifying the source array
+                source: @Html.Raw(jsOzelliklerArrayBuffer)
+            });
+        }
+        else {
+            //display a textarea for old IE, because it doesn't support this plugin or another one I tried!
+            tag_input.after('<textarea id="' + tag_input.attr('id') + '" name="' + tag_input.attr('name') + '" rows="3">' + tag_input.val() + '</textarea>').remove();
+            //$('#form-field-tags').autosize({append: "\n"});
+        }        
+    });
+</script>
+}

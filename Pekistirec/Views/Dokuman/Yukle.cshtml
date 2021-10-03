@@ -1,0 +1,361 @@
+﻿@model Pekistirec.Models.DokumanModels.DokumanYukleViewModel
+
+@{
+
+    #region View<->CodeBehind
+
+    var codebehind = new Pekistirec.Views.Dokuman.YukleCodebehind(User, Model);
+
+    string yukleFormControllerName = codebehind.YukleFormControllerName;
+    string yukleFormActionName = codebehind.YukleFormActionName;
+    int DokumanBaslikMinLength = codebehind.DokumanBaslikMinLength;
+    int DokumanBaslikMaxLength = codebehind.DokumanBaslikMaxLength;    
+    string jsOzelliklerArray = codebehind.jsOzelliklerArrayBuffer;
+    string jsDokumanUzantiArrayBuffer = codebehind.jsDokumanUzantiArrayBuffer;
+    string jsDokumanUzantiVerticalBarSperatorBuffer = codebehind.jsDokumanUzantiVerticalBarSperatorBuffer;
+    bool RECAPTCHA_ENABLED = codebehind.RECAPTCHA_ENABLED;
+    bool reCaptchaGerekliMi = codebehind.reCaptchaGerekliMi;
+    #endregion
+
+    string Etiketler = "";
+    if (Model != null)
+    {
+        if (Model.Etiketler != null)
+        {
+            Etiketler = Model.Etiketler;
+        }
+    }
+}
+
+<h3 class="header smaller lighter blue">
+    Döküman Yükle 
+</h3>
+
+<div class="row hidden" id="divDegiskenDuzenleSpinner">
+    <div class="alert alert-info">
+        <i class="icon-spinner icon-spin orange bigger-125"></i>
+        İşleminiz yapılırken lütfen bekleyiniz...
+    </div>
+</div>
+
+@using (Html.BeginForm(yukleFormActionName, yukleFormControllerName, FormMethod.Post, new { enctype = "multipart/form-data", @id = "form", @class = "cmxform" }))
+{
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="row">
+
+                <div class="col-sm-2">
+                    Özel
+                </div>
+                <div class="col-sm-10">
+                    <label>
+                        @Html.DropDownListFor(model => model.Ozel, new List<SelectListItem>() { new SelectListItem() { Selected = true, Value = "false", Text = "Herkese Açık" }, new SelectListItem() { Selected = false, Value = "true", Text = "Sadece Linke Sahip Olanlar" } }, new { @class = "Listeleme" })
+                    </label>
+                </div>
+
+            </div>
+            <div class="space-2 OzelDegil"></div>
+            <div class="hr hr-4 OzelDegil"></div>
+            <div class="space-2 OzelDegil"></div>            
+
+
+            <div class="row">
+
+                <div class="editor-label col-sm-2">
+                    @Html.Label("Başlık")
+
+                </div>
+                <div class="editor-field col-sm-7">                    
+                    @Html.TextBoxFor(model => model.Baslik, new { @class = "col-sm-12", autocomplete = "off" })
+
+                </div>
+                <div id="divBaslikMesaj" class="red col-sm-3">
+                    @Html.ValidationMessageFor(model => model.Baslik)
+                </div>
+
+            </div>
+
+            <div class="space-2 OzelDegil"></div>
+            <div class="hr hr-4 OzelDegil"></div>
+            <div class="space-2 OzelDegil"></div> 
+
+            <div class="row OzelDegil">
+                <div class="col-sm-2">
+                    @Html.Label("Etiketler")
+                </div>
+                <div class="col-sm-10">
+                    <input type="text" name="Etiketler" id="txtEtiketler" value="@Etiketler" placeholder="Etiket Ekle" />
+                </div>
+            </div>
+
+            <div class="space-2"></div>
+            <div class="hr hr-4"></div>
+            <div class="space-2"></div>
+            <div class="row">
+
+                <div class="editor-label col-sm-2">
+                    @Html.Label("Dosya")
+                </div>
+                <div class="editor-field col-sm-4">
+                    <input type="file" name="Dosya" id="Dosya" class="col-sm-12 {validate:{required:true}}" />
+                </div>
+                <div id="divDosyaMesaj" class="editor-field col-sm-6 red">
+                    @Html.ValidationMessageFor(model => model.Dosya)
+                </div>
+            </div>
+
+            <div class="space-2"></div>
+            <div class="hr hr-4"></div>
+            <div class="space-2"></div>        
+
+            <div class="row">
+
+                <div class="editor-label col-sm-2">
+                    @Html.Label("")
+                </div>
+                <div class="editor-field col-sm-10">
+                   @if (RECAPTCHA_ENABLED && reCaptchaGerekliMi)
+                   {
+
+                    @Html.Partial("reCaptcha");
+                   }
+                   <div class="red">@Html.ValidationMessageFor(model => model.recaptcha_response_field)</div>
+                   
+                </div>
+            </div>
+
+            <div class="space-2"></div>
+            <div class="hr hr-4"></div>
+            <div class="space-2"></div>  
+
+            
+            
+                
+            
+            <div class="row">
+                <div class="col-sm-2">
+
+                </div>
+                <div class="col-sm-10">
+                    <button class="btn btn-info" type="submit">
+                        <i class="icon-cloud-upload bigger-110"></i>
+                        YÜKLE
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+@section page_specific_plugin_scripts{
+
+    <script src="/assets/js/bootstrap-tag.min.js"></script>
+}
+
+
+@section inline_scripts_related_to_this_page{
+
+    <script type="text/javascript">
+    /// Enter tuşu ile post edilmeyi engelliyor
+
+    function stopRKey(evt) {
+        var evt = (evt) ? evt : ((event) ? event : null);
+        var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
+        if ((evt.keyCode == 13) && (node.type=="text"))  {return false;}
+    }
+
+    document.onkeypress = stopRKey;
+
+    // $("#Baslik") AutoComplete İçin Lazım
+    var availableTags = @Html.Raw(jsOzelliklerArray);
+    function split(val) {
+        return val.split(/\s/);
+    }
+    function extractLast(term) {
+        return split(term).pop();
+    }
+    ///////////////////////////////////
+
+    jQuery(function ($) {
+
+        if ($('.Listeleme').val() == "true")
+        {
+            $('.OzelDegil').hide();
+        }
+        else
+        {
+            $('.OzelDegil').show();
+        }
+
+        $('.Listeleme').change(function () {
+            if ($('.Listeleme').val() == "true") {
+                $('.OzelDegil').hide();
+            }
+            else {
+                $('.OzelDegil').show();
+            }
+        });
+
+
+        $("#Baslik")
+        // don't navigate away from the field on tab when selecting an item
+        .bind("keydown", function (event) {
+            if (event.keyCode === $.ui.keyCode.TAB &&
+                $(this).data("autocomplete").menu.active) {
+                event.preventDefault();
+            }
+        })
+        .autocomplete({
+            minLength: 0,
+            source: function (request, response) {
+                // delegate back to autocomplete, but extract the last term
+                response($.ui.autocomplete.filter(
+                    availableTags, extractLast(request.term)));
+            },
+            focus: function () {
+                // prevent value inserted on focus
+                return false;
+            },
+            select: function (event, ui) {
+                var terms = split(this.value);
+                // remove the current input
+                terms.pop();
+                // add the selected item
+                terms.push(ui.item.value);
+                // add placeholder to get the comma-and-space at the end
+                terms.push("");
+                this.value = terms.join(" ");
+                return false;
+            },
+            open: function (event, ui) {
+                var input = $(event.target),
+                    widget = input.autocomplete("widget"),
+                    style = $.extend(input.css([
+                        "font",
+                        "border-left",
+                        "padding-left"
+                    ]), {
+                        position: "absolute",
+                        visibility: "hidden",
+                        "padding-right": 0,
+                        "border-right": 0,
+                        "white-space": "pre"
+                    }),
+                    div = $("<div/>"),
+                    pos = {
+                        my: "left top",
+                        collision: "none"
+                    },
+                    offset = -7; // magic number to align the first letter
+                // in the text field with the first letter
+                // of suggestions
+                // depends on how you style the autocomplete box
+
+                widget.css("width", "");
+
+                div
+                    .text(input.val().replace(/\S*$/, ""))
+                    .css(style)
+                    .insertAfter(input);
+                offset = Math.min(
+                    Math.max(offset + div.width(), 0),
+                    input.width() - widget.width()
+                );
+                div.remove();
+
+                pos.at = "left+" + offset + " bottom";
+                input.autocomplete("option", "position", pos);
+
+                widget.position($.extend({ of: input }, pos));
+            }
+        });
+
+        //we could just set the data-provide="tag" of the element inside HTML, but IE8 fails!
+        var tag_input = $('#txtEtiketler');
+        if (!(/msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase()))) {
+            tag_input.tag({
+                placeholder: tag_input.attr('placeholder'),
+                //enable typeahead by specifying the source array
+                source: availableTags
+            });
+        }
+        else {
+            //display a textarea for old IE, because it doesn't support this plugin or another one I tried!
+            tag_input.after('<textarea id="' + tag_input.attr('id') + '" name="' + tag_input.attr('name') + '" rows="3">' + tag_input.val() + '</textarea>').remove();
+            //$('#form-field-tags').autosize({append: "\n"});
+        }
+
+        $("#form").submit(function (event) {
+            var formdaHataVarMi = false;
+
+            if ($("#Dosya").val() == "") {
+                formdaHataVarMi = true;
+                $("#divDosyaMesaj").text("Bir dosya belirtmelisiniz.");
+            }
+            else {
+                var ext = $('#Dosya').val().split('.').pop().toLowerCase();
+                if ($.inArray(ext, @Html.Raw(jsDokumanUzantiArrayBuffer)) == -1) {
+                    formdaHataVarMi = true;
+                    $("#divDosyaMesaj").text("Uyumsuz dosya türü.");
+                }
+                else {
+                    $("#divDosyaMesaj").text("");
+                }
+            }
+
+            if ($('.Listeleme').val() == "false") // Ozel değilse
+            {
+
+                var dokumanMinLen = @Html.Raw(DokumanBaslikMinLength);
+                var dokumanMaxLen = @Html.Raw(DokumanBaslikMaxLength);
+                if($.trim($("#Baslik").val()).length < dokumanMinLen)
+                {
+                    formdaHataVarMi = true;
+                    $("#divBaslikMesaj").text("Başlık en az @Html.Raw(DokumanBaslikMinLength) karakter olmalıdır.");
+                }
+                else{
+                    if($.trim($("#Baslik").val()).length > dokumanMaxLen)
+                    {
+                        formdaHataVarMi = true;
+                        $("#divBaslikMesaj").text("Başlık en fazla @Html.Raw(DokumanBaslikMaxLength) karakter olmalıdır.");
+                    }
+                    else{
+                        $("#divBaslikMesaj").text("");
+                    }
+                }
+            }
+
+            if (formdaHataVarMi == false) {
+                $("#divDegiskenDuzenleSpinner").removeClass("hidden");
+                $("button").attr("disabled", "disabled");
+                return true;
+            }
+            else
+                return false;
+        });
+
+        $('#Ozel').change(function () {
+            if ($(this).is(":checked")) {
+                $('.Brans,.Tur,.Kulup').hide();
+            }
+            else {
+                $('.Brans,.Tur,.Kulup').show();
+            }
+        });
+
+
+        $('#id-input-file-1 , #id-input-file-2, #Dosya').ace_file_input({
+            no_file: 'Dosya seçilmedi ...',
+            btn_choose: 'Seç',
+            btn_change: 'Değiştir',
+            droppable: false,
+            onchange: null,
+            thumbnail: false, //| true | large
+            whitelist: @Html.Raw(jsDokumanUzantiVerticalBarSperatorBuffer),
+            blacklist: 'exe|php|aspx|asp|bat'
+            //onchange:''
+            //
+        });
+    });
+</script>
+}

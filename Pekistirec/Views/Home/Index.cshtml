@@ -1,0 +1,157 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- basic styles -->
+
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/font-awesome.min.css" />
+
+    <!--[if IE 7]>
+      <link rel="stylesheet" href="/assets/css/font-awesome-ie7.min.css" />
+    <![endif]-->
+    <!-- page specific plugin styles -->
+    <link rel="stylesheet" href="/assets/css/jquery-ui-1.10.3.full.min.css" />
+
+    <!-- fonts -->
+
+    <link rel="stylesheet" href="/assets/css/ace-fonts.css" />
+
+    <!-- ace styles -->
+
+    <link rel="stylesheet" href="/assets/css/ace.min.css" />
+    <link rel="stylesheet" href="/assets/css/ace-rtl.min.css" />
+    <link rel="stylesheet" href="/assets/css/ace-skins.min.css" />
+
+    <!--[if lte IE 8]>
+      <link rel="stylesheet" href="/assets/css/ace-ie.min.css" />
+    <![endif]-->
+    <!-- inline styles related to this page -->
+    <!-- ace settings handler -->
+
+    <script src="/assets/js/ace-extra.min.js"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/assets/js/html5shiv.js"></script>
+    <script src="/assets/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+    <style>
+        #divBulutZemin{
+            text-align:center;
+        }
+
+        img {            
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        #divLoginLink {
+            /*background-color:black;
+            /*background-image: url(/Content/images/MaviBulut.gif);*/
+            position:absolute;
+        }
+        body{
+            background-image:url(/Content/images/arkaplantekrar.jpg);
+            background-repeat:repeat-x;
+            background-color:#99CFE7;
+        }
+    </style>
+</head>
+<body>    
+    <div id="divBulutZemin">
+        <img id="imgbulutzemin" src="~/Content/images/arkaplan.jpg" />
+    </div>    
+    <div id="divLoginLink">
+        <a href="/Account/Login">            
+            <img src="~/Content/images/login.png"/>
+        </a>
+    </div>
+    <div id="divDokumanLink">
+        <a href="/dokuman">
+            <img src="~/Content/images/dokuman.png" />
+        </a>
+    </div>
+    <div id="divRehberLink">
+        <a href="/dokuman/rehber">
+            <img src="~/Content/images/nedir.png" />
+        </a>
+    </div>
+
+    <!-- basic scripts -->
+    <!--[if !IE]> -->
+
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='/assets/js/jquery-2.0.3.min.js'>" + "<" + "/script>");
+    </script>
+
+    <!-- <![endif]-->
+    <!--[if IE]>
+    <script type="text/javascript">
+     window.jQuery || document.write("<script src='/assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
+    </script>
+    <![endif]-->
+
+    <script type="text/javascript">
+        if ("ontouchend" in document) document.write("<script src='/assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+    </script>
+
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/typeahead-bs2.min.js"></script>
+    <script src="/assets/js/jquery-ui-1.10.3.full.min.js"></script>
+    <script src="/assets/js/jquery.ui.touch-punch.min.js"></script>
+
+
+    <!-- page specific plugin scripts -->
+    
+    <!-- ace scripts -->
+
+    <script src="/assets/js/ace-elements.min.js"></script>
+    <script src="/assets/js/ace.min.js"></script>
+
+    <!-- inline scripts related to this page -->
+    
+
+    <script type="text/javascript">
+        jQuery(function ($) {
+            $(window).resize(function () {
+                var aspect = $('#imgbulutzemin').width() / 645;
+                var leftEkle = $('#imgbulutzemin').offset().left;
+                var topEkle = $('#imgbulutzemin').offset().top;
+                
+
+
+
+                $('#divRehberLink').width(aspect * 88);
+                $('#divRehberLink').height(aspect * 101);
+                $('#divRehberLink').offset({ top: (aspect * 294) + topEkle, left: (aspect * 480) + leftEkle });
+
+                $('#divDokumanLink').width(aspect * 99);
+                $('#divDokumanLink').height(aspect * 100);
+                $('#divDokumanLink').offset({ top: (aspect * 200) + topEkle, left: (aspect * 80) + leftEkle });
+
+                $('#divLoginLink').width(aspect * 108);
+                $('#divLoginLink').height(aspect * 81);
+                $('#divLoginLink').offset({ top: (aspect * 30) + topEkle, left: (aspect * 410) + leftEkle });
+            });
+            $(window).resize();
+
+        });
+    </script>
+
+
+
+</body>
+</html>
